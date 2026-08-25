@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairos ご提案｜オンラインスクール会員制動画サイト構築</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0B1220;
+    --navy:#141F38;
+    --navy-light:#1F2E52;
+    --gold:#F2A93B;
+    --gold-soft:#F6C878;
+    --teal:#3FAE96;
+    --offwhite:#F6F5F0;
+    --gray:#8D97B3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans JP', sans-serif;
+    background:var(--navy-deep);
+    color:var(--offwhite);
+    line-height:1.85;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Shippori Mincho', serif;
+    font-weight:700;
+    letter-spacing:0.04em;
+  }
+  a{color:inherit;}
+  .container{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.78rem;
+    letter-spacing:0.28em;
+    color:var(--gold-soft);
+    margin-bottom:22px;
+    font-weight:500;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;
+    height:1px;
+    background:var(--gold-soft);
+    display:inline-block;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:140px 0 100px;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(242,169,59,0.16), transparent 42%),
+      radial-gradient(circle at 15% 85%, rgba(63,174,150,0.14), transparent 45%),
+      linear-gradient(160deg, #0B1220 0%, #141F38 55%, #0E1830 100%);
+    overflow:hidden;
+  }
+  .keyhole{
+    position:absolute;
+    right:6%;
+    top:50%;
+    transform:translateY(-50%);
+    width:340px;
+    height:340px;
+    opacity:0.9;
+    pointer-events:none;
+  }
+  .keyhole .ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:1px solid rgba(242,169,59,0.35);
+  }
+  .keyhole .ring2{
+    position:absolute;
+    inset:34px;
+    border-radius:50%;
+    border:1px solid rgba(242,169,59,0.18);
+  }
+  .keyhole .core{
+    position:absolute;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #7a5316 100%);
+    box-shadow:0 0 60px rgba(242,169,59,0.45);
+  }
+  .keyhole .stem{
+    position:absolute;
+    left:50%;
+    top:52%;
+    transform:translateX(-50%);
+    width:34px;
+    height:130px;
+    background:linear-gradient(180deg, var(--gold) 0%, #7a5316 100%);
+    clip-path:polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  }
+  .hero-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4.6vw, 3.4rem);
+    line-height:1.5;
+    color:var(--offwhite);
+    margin-bottom:28px;
+  }
+  .hero h1 span{
+    color:var(--gold);
+    display:inline-block;
+  }
+  .hero p.lead{
+    font-size:1.02rem;
+    color:var(--gray);
+    max-width:520px;
+    margin-bottom:36px;
+  }
+  .badge-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .badge{
+    border:1px solid rgba(255,255,255,0.14);
+    background:rgba(255,255,255,0.03);
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:0.82rem;
+    color:var(--offwhite);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .badge::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--teal);
+  }
+
+  /* ---------- SECTION COMMON ---------- */
+  section{
+    padding:110px 0;
+    position:relative;
+  }
+  .section-title{
+    font-size:clamp(1.6rem, 3vw, 2.3rem);
+    color:var(--offwhite);
+    margin-bottom:20px;
+  }
+  .section-sub{
+    color:var(--gray);
+    max-width:640px;
+    margin-bottom:56px;
+    font-size:0.98rem;
+  }
+
+  /* ---------- UNDERSTANDING ---------- */
+  .understand{
+    background:linear-gradient(180deg, #0E1830 0%, #101B34 100%);
+    border-top:1px solid rgba(255,255,255,0.06);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .understand-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .u-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:6px;
+    padding:34px 28px;
+    position:relative;
+  }
+  .u-card .num{
+    font-family:'Shippori Mincho', serif;
+    font-size:2.2rem;
+    color:var(--gold);
+    opacity:0.7;
+    margin-bottom:14px;
+    display:block;
+  }
+  .u-card h3{
+    font-size:1.08rem;
+    margin-bottom:12px;
+    color:var(--offwhite);
+  }
+  .u-card p{
+    font-size:0.88rem;
+    color:var(--gray);
+  }
+
+  /* ---------- VALUE (STAIRS) ---------- */
+  .value-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .value-item{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:40px;
+    align-items:center;
+    padding:36px 0;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .value-item:first-child{border-top:1px solid rgba(255,255,255,0.08);}
+  .tier-visual{
+    position:relative;
+    height:120px;
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+  }
+  .tier-bar{
+    flex:1;
+    border-radius:4px 4px 0 0;
+    background:linear-gradient(180deg, rgba(242,169,59,0.9), rgba(242,169,59,0.15));
+  }
+  .value-item:nth-child(1) .tier-bar:nth-child(1){height:40%;}
+  .value-item:nth-child(1) .tier-bar:nth-child(2){height:70%;}
+  .value-item:nth-child(1) .tier-bar:nth-child(3){height:100%;}
+  .value-item:nth-child(2) .tier-visual .lockbox{
+    width:100%; height:100%;
+    border:1px solid rgba(63,174,150,0.5);
+    border-radius:8px;
+    background:linear-gradient(160deg, rgba(63,174,150,0.16), transparent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lockbox .lock-icon{
+    width:40px;height:40px;
+    border:2px solid var(--teal);
+    border-radius:8px 8px 0 0/12px 12px 0 0;
+    position:relative;
+  }
+  .lockbox .lock-icon::before{
+    content:"";
+    position:absolute;
+    top:-16px;left:50%;
+    transform:translateX(-50%);
+    width:22px;height:22px;
+    border:2px solid var(--teal);
+    border-bottom:none;
+    border-radius:50% 50% 0 0;
+  }
+  .value-item:nth-child(3) .tier-visual{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .card-stack{position:relative; width:120px; height:90px;}
+  .card-stack div{
+    position:absolute;
+    width:120px;height:70px;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.15);
+  }
+  .card-stack div:nth-child(1){top:20px; background:rgba(255,255,255,0.03); transform:rotate(-6deg);}
+  .card-stack div:nth-child(2){top:10px; background:rgba(255,255,255,0.05); transform:rotate(3deg);}
+  .card-stack div:nth-child(3){top:0; background:linear-gradient(135deg, rgba(242,169,59,0.35), rgba(242,169,59,0.05));}
+  .value-item:nth-child(4) .tier-visual{
+    display:flex; align-items:center; justify-content:center;
+    gap:6px;
+  }
+  .gear{
+    width:46px;height:46px;
+    border-radius:50%;
+    border:6px solid rgba(139,151,179,0.3);
+    border-top-color:var(--gold);
+  }
+  .value-item:nth-child(5) .tier-visual{
+    display:flex; align-items:center; justify-content:center;
+  }
+  .infinity{
+    font-size:3rem;
+    color:var(--gold);
+    font-family:'Shippori Mincho',serif;
+  }
+  .value-text h3{
+    font-size:1.25rem;
+    color:var(--offwhite);
+    margin-bottom:12px;
+  }
+  .value-text p{
+    color:var(--gray);
+    font-size:0.94rem;
+    max-width:600px;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{
+    background:linear-gradient(180deg, #101B34 0%, #0B1220 100%);
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .timeline{
+    position:relative;
+    padding-left:30px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:6px; top:6px; bottom:6px;
+    width:1px;
+    background:linear-gradient(180deg, var(--gold), rgba(242,169,59,0.05));
+  }
+  .t-step{
+    position:relative;
+    padding-bottom:52px;
+  }
+  .t-step:last-child{padding-bottom:0;}
+  .t-step::before{
+    content:"";
+    position:absolute;
+    left:-30px;
+    top:2px;
+    width:13px;height:13px;
+    border-radius:50%;
+    background:var(--navy-deep);
+    border:2px solid var(--gold);
+  }
+  .t-week{
+    font-size:0.78rem;
+    letter-spacing:0.2em;
+    color:var(--gold-soft);
+    margin-bottom:8px;
+  }
+  .t-step h3{
+    font-size:1.12rem;
+    color:var(--offwhite);
+    margin-bottom:10px;
+  }
+  .t-step p{
+    color:var(--gray);
+    font-size:0.9rem;
+    max-width:600px;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    padding:130px 0 120px;
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(242,169,59,0.12), transparent 55%),
+      #0B1220;
+  }
+  .closing h2{
+    font-size:clamp(1.7rem,3.6vw,2.5rem);
+    margin-bottom:22px;
+  }
+  .closing p{
+    color:var(--gray);
+    max-width:560px;
+    margin:0 auto 40px;
+  }
+  .cta-btn{
+    display:inline-block;
+    padding:18px 48px;
+    background:linear-gradient(90deg, var(--gold), var(--gold-soft));
+    color:#1B1200;
+    font-weight:700;
+    border-radius:2px;
+    text-decoration:none;
+    letter-spacing:0.05em;
+    font-size:0.98rem;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow:0 10px 30px rgba(242,169,59,0.25);
+  }
+  .cta-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 40px rgba(242,169,59,0.35);
+  }
+  .answer-box{
+    margin-top:60px;
+    text-align:left;
+    max-width:720px;
+    margin-left:auto;
+    margin-right:auto;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:6px;
+    padding:32px 34px;
+  }
+  .answer-box h3{
+    font-size:1rem;
+    color:var(--gold-soft);
+    margin-bottom:18px;
+    letter-spacing:0.05em;
+  }
+  .answer-box ul{
+    list-style:none;
+  }
+  .answer-box li{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:14px;
+    font-size:0.88rem;
+    color:var(--offwhite);
+    padding:10px 0;
+    border-bottom:1px dashed rgba(255,255,255,0.08);
+  }
+  .answer-box li:last-child{border-bottom:none;}
+  .answer-box li span.q{color:var(--teal); font-weight:500;}
+
+  footer{
+    padding:36px 0;
+    text-align:center;
+    font-size:0.78rem;
+    color:var(--gray);
+    border-top:1px solid rgba(255,255,255,0.06);
+    letter-spacing:0.08em;
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .keyhole{position:relative; margin:40px auto 0; width:220px; height:220px; right:auto; top:auto; transform:none;}
+    .understand-grid{grid-template-columns:1fr;}
+    .value-item{grid-template-columns:1fr; gap:20px;}
+    .tier-visual{height:90px;}
+    .answer-box li{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">KAIROS PROPOSAL — 御提案書</div>
+      <h1>会員だけに開く扉を、<br>正しい設計で<span>実装</span>する。</h1>
+      <p class="lead">
+        オンラインスクールの価値は「動画」ではなく「動画にたどり着くまでの体験」で決まります。
+        登録、決済、権限、視聴——一つでも詰まれば離脱につながる導線を、
+        Kairosが要件から実装まで一貫して形にします。
+      </p>
+      <div class="badge-row">
+        <span class="badge">WordPress 会員サイト構築実績あり</span>
+        <span class="badge">決済API連携 対応可</span>
+        <span class="badge">継続案件 歓迎</span>
+      </div>
+    </div>
+    <div class="keyhole">
+      <div class="ring"></div>
+      <div class="ring2"></div>
+      <div class="core"></div>
+      <div class="stem"></div>
+    </div>
+  </div>
+</section>
+
+<section class="understand">
+  <div class="container">
+    <div class="eyebrow">UNDERSTANDING — 案件理解</div>
+    <h2 class="section-title">この募集の本質は「UTAGE的な体験」を、<br>WordPressの上に無理なく再現することだと理解しています。</h2>
+    <p class="section-sub">
+      単なる動画埋め込みサイトではなく、会員ステータスによって見える景色が変わる「学びのプラットフォーム」。
+      その裏側には決済・権限・継続運用という3つの重い要件があることを踏まえてご提案します。
+    </p>
+    <div class="understand-grid">
+      <div class="u-card">
+        <span class="num">01</span>
+        <h3>権限設計がすべての土台</h3>
+        <p>無料／有料会員でコンテンツの見え方を分岐させる設計は、後付けだと必ず破綻します。要件定義の段階で権限マトリクスを組み、拡張に耐える構造にします。</p>
+      </div>
+      <div class="u-card">
+        <span class="num">02</span>
+        <h3>決済は「止まらない」が最優先</h3>
+        <p>SBペイメント／Stripeいずれも実装経験を踏まえ、決済失敗時のUXやステータス反映漏れが起きない連携を組みます。</p>
+      </div>
+      <div class="u-card">
+        <span class="num">03</span>
+        <h3>単発ではなく、育てる前提の設計</h3>
+        <p>コーポレートサイトやLPなど今後のご依頼も見据え、後任が触っても崩れない、運用しやすいテーマ構成・命名規則で構築します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="value">
+  <div class="container">
+    <div class="eyebrow">VALUE — Kairosが提供できること</div>
+    <h2 class="section-title">動画会員サイトに必要な5つの実装力</h2>
+    <p class="section-sub">プラグインを組み合わせるだけでなく、「何をどう見せないか」まで設計するのがKairosの強みです。</p>
+
+    <div class="value-list">
+      <div class="value-item">
+        <div class="tier-visual">
+          <div class="tier-bar"></div>
+          <div class="tier-bar"></div>
+          <div class="tier-bar"></div>
+        </div>
+        <div class="value-text">
+          <h3>会員ランク別アクセス制御の構築</h3>
+          <p>MemberPress／Restrict Content Pro等を用い、無料・有料・上位プランごとに視聴可能な動画・マイページ表示を出し分ける権限設計を行います。</p>
+        </div>
+      </div>
+
+      <div class="value-item">
+        <div class="tier-visual">
+          <div class="lockbox"><div class="lock-icon"></div></div>
+        </div>
+        <div class="value-text">
+          <h3>決済連携（SBペイメント／Stripe）</h3>
+          <p>決済プラグイン・APIの連携実績があり、入金確認から会員ステータス自動更新までを一気通貫で設計します。手動対応の負担を極力減らします。</p>
+        </div>
+      </div>
+
+      <div class="value-item">
+        <div class="tier-visual">
+          <div class="card-stack"><div></div><div></div><div></div></div>
+        </div>
+        <div class="value-text">
+          <h3>YouTube限定公開の動画管理・マイページUI</h3>
+          <p>ダッシュボード・マイページのUIを、学習の進捗が視覚的にわかる設計に。会員が「今どこにいるか」迷わないインターフェースを整えます。</p>
+        </div>
+      </div>
+
+      <div class="value-item">
+        <div class="tier-visual"><div class="gear"></div></div>
+        <div class="value-text">
+          <h3>既存テーマ活用・オリジナル構築どちらにも対応</h3>
+          <p>予算感（15〜20万円）を踏まえ、既存テーマ＋プラグインカスタマイズで着実に要件を満たす現実的な構成をまずご提案します。</p>
+        </div>
+      </div>
+
+      <div class="value-item">
+        <div class="tier-visual"><div class="infinity">∞</div></div>
+        <div class="value-text">
+          <h3>コーポレートサイト・LP制作までの継続対応</h3>
+          <p>会員サイト構築後も見据え、今後のコーポレートサイトやLP制作（1本5〜10万円）にもチームとして継続的に対応可能です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="container">
+    <div class="eyebrow">PROCESS — 進め方</div>
+    <h2 class="section-title">開発期間の目安：約4週間</h2>
+    <p class="section-sub">ご相談のうえ調整可能です。まずはヒアリングで権限・決済フローを固めることから始めます。</p>
+
+    <div class="timeline">
+      <div class="t-step">
+        <div class="t-week">WEEK 1</div>
+        <h3>要件定義・権限設計</h3>
+        <p>会員ランク、決済フロー、視聴制限のルールをすり合わせ。使用プラグイン（MemberPress／LearnDash等）を選定します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-week">WEEK 2</div>
+        <h3>環境構築・決済連携</h3>
+        <p>エックスサーバー上にステージング環境を構築し、SBペイメントまたはStripeとの連携、会員登録フローを実装します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-week">WEEK 3</div>
+        <h3>マイページ・動画表示実装</h3>
+        <p>ダッシュボード／マイページUIの整備、YouTube限定公開動画の権限別出し分けを実装します。</p>
+      </div>
+      <div class="t-step">
+        <div class="t-week">WEEK 4</div>
+        <h3>検証・本番反映</h3>
+        <p>ステージング環境でのテスト、決済〜視聴までの一連の動作確認を行った上で本番反映。以降の運用体制もご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center;">NEXT ACTION</div>
+    <h2>まずは要件のすり合わせから、<br>お気軽にお話しさせてください。</h2>
+    <p>チャット・Zoomどちらでも対応可能です。今回の会員サイト構築から、今後のコーポレートサイト・LP制作まで、継続してお付き合いできるパートナーとしてご検討いただければ幸いです。</p>
+    <a href="#" class="cta-btn">Kairosにメッセージを送る</a>
+
+    <div class="answer-box">
+      <h3>ご提示いただいたご質問への回答</h3>
+      <ul>
+        <li><span class="q">① 会員制サイト実績</span><span>WordPress上での会員登録・権限管理・決済連携を含む構築実績あり。詳細URLは個別にご案内いたします。</span></li>
+        <li><span class="q">② 決済経験</span><span>Stripe／SBペイメントサービスいずれも連携実装の経験あり。</span></li>
+        <li><span class="q">③ 納期目安</span><span>要件確定後、約4週間を想定（範囲に応じ調整可能）。</span></li>
+        <li><span class="q">④ 予算15万円での対応</span><span>既存テーマ＋プラグイン構成であれば対応可能。範囲の優先順位をご相談させてください。</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  KAIROS — Web制作・システム開発チーム ／ 本ページはAIコンシェル様向けのご提案として作成しました
+</footer>
+
+</body>
+</html>
